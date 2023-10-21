@@ -39,6 +39,12 @@
         @enderror
     </div>
 
+
+    <div class="mt-3">
+        <p class="text-danger">FIELDS BELOW IS NOT REQUIRED (MAY NOT BE FIELD)</p>
+    </div>
+
+
     <div class="form-group mt-3">
         <label for="name">Name</label>
         <input type="text" name="name" class="form-control" id="name" placeholder="Name"
@@ -91,6 +97,6 @@
         <p class="text-danger">{{  $message }}</p>
         @enderror
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    <button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button>
 </form>
 @endsection('content')
