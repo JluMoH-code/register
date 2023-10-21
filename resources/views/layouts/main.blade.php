@@ -17,7 +17,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('register.index') }}">Register</a>
+                        <a class="nav-link" href="{{ route('user.index') }}">Users</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('register.create') }}">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('author.index') }}">Authors</a>

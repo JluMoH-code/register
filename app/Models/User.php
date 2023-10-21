@@ -17,11 +17,11 @@ class User extends Model
     protected $table = "users";
     protected $guarded = [];
 
-    public function categories() {
-        return $this->belongsToMany(Category::class);
-    }
-
     public function authors() {
         return $this->belongsToMany(Author::class);
+    }
+
+    public function user_info() {
+        return $this->hasOne(User_info::class);
     }
 }

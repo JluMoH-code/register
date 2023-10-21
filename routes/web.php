@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/users', "RegisterController@index")->name('register.index');
+Route::get('/users', "UserController@index")->name('user.index');
 Route::get('/register', "RegisterController@create")->name('register.create');
 Route::post('/register', "RegisterController@store")->name('register.store');
-Route::get('/users/{user}', "RegisterController@show")->name('register.show');
+Route::get('/users/{user}', "UserController@show")->name('user.show');
 
 Route::get('authors', "AuthorController@index")->name('author.index');
 Route::get('authors/create', "AuthorController@create")->name('author.create');
