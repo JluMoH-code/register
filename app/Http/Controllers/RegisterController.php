@@ -51,6 +51,8 @@ class RegisterController extends Controller
             'user_id' => $user->id,
         ]);
 
+//        event(new Registered($user));
+
         return redirect()->route('user.index');
     }
 }
