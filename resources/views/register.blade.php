@@ -97,6 +97,34 @@
         <p class="text-danger">{{  $message }}</p>
         @enderror
     </div>
+
+    <div class="form-group pb-3">
+        <label for="categories">Categories</label>
+        <select id="categories" name="categories[]" class="form-select" multiple aria-label="multiple select example">
+            @foreach($categories as $category)
+                <option
+
+                    {{ old('$categories') != null && in_array($category->id, old('$categories')) ? 'selected' : '' }}
+
+                    value="{{ $category->id }}">{{ $category->title }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group pb-3">
+        <label for="tags">Authors</label>
+        <select id="authors" name="authors[]" class="form-select" multiple="multiple" aria-label="multiple select example" data-live-search="true">
+            @foreach($authors as $author)
+                <option
+
+                    {{ old('$authors') != null && in_array($author->id, old('$authors')) ? 'selected' : '' }}
+
+                    value="{{ $author->id }}">{{ $author->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button>
 </form>
 @endsection('content')

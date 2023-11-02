@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Auth\Events\Registered;
@@ -12,7 +13,9 @@ use App\Models\Category;
 class RegisterController extends Controller
 {
     public function create() {
-        return view('register');
+        $authors = Author::all()->take(10);
+        $categories = Category::all()->take(10);
+        return view('register', compact('authors', 'categories'));
     }
 
     public function store(Request $request) {
@@ -27,6 +30,8 @@ class RegisterController extends Controller
             'phone_number' => 'nullable|regex:/(7)[0-9]{10}/|unique:user_infos', // у всех пользователей должен быть разный телефон
             'about' => 'string|nullable',
             'photo' => 'image|mimes:jpeg,jpg,png,svg|max:2048|nullable',
+            'authors' => 'exists:authors,id',
+            'categories' => 'exists:categories,id'
         ],[
             'login.unique' => 'Пользователь с таким email уже существует!',     // пользовательские ошибки
         ]);
@@ -51,7 +56,10 @@ class RegisterController extends Controller
             'user_id' => $user->id,
         ]);
 
-        event(new Registered($user));
+        $user->authors()->attach($request->authors);
+        $user->categories()->attach($request->categories);
+
+//        event(new Registered($user));
 
         return redirect()->route('user.index');
     }
