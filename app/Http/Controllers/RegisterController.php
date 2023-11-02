@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\User_info;
+use App\Models\UserInfo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -41,7 +41,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user_info = User_info::create([
+        $user_info = UserInfo::create([
             'name' => $request->name,
             'secondary_name' => $request->secondary_name,
             'birthday' => $request->birthday,
@@ -51,7 +51,7 @@ class RegisterController extends Controller
             'user_id' => $user->id,
         ]);
 
-//        event(new Registered($user));
+        event(new Registered($user));
 
         return redirect()->route('user.index');
     }

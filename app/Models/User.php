@@ -22,7 +22,11 @@ class User extends Authentictable implements MustVerifyEmail
         return $this->belongsToMany(Author::class);
     }
 
-    public function user_info() {
-        return $this->hasOne(User_info::class);
+    public function categories() {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function userInfos() {
+        return $this->hasOne(UserInfo::class);
     }
 }
