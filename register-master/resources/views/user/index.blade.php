@@ -13,7 +13,7 @@
         <tbody>
         @foreach ($users as $user)
             <tr>
-                <th scope="row"><a href="{{ route('register.show', $user->id) }}">{{ $user->id }}</a></th>
+                <th scope="row"><a href="{{ route('user.show', $user->id) }}">{{ $user->id }}</a></th>
                 <td>{{ $user->login }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->password }}</td>
