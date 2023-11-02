@@ -22,6 +22,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ route('register.create') }}">Register</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                    </li>
                 </ul>
             </div>
         </nav>

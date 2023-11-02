@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('content')
-    <p>This is main page</p>
+    <p>Email verified</p>
 @endsection('content')

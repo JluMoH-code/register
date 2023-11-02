@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Category;
 
@@ -80,8 +81,8 @@ class RegisterController extends Controller
         $user->authors()->attach($request->authors);
         $user->categories()->attach($request->categories);
 
-//        event(new Registered($user));
-
-        return redirect()->route('user.index');
+        event(new Registered($user));
+        Auth::login($user);
+        return redirect()->route('home');
     }
 }
