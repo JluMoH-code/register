@@ -19,7 +19,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'login' => $this->faker->text(16),
+            'login' => $this->faker->unique->text(16),
             'email' => $this->faker->unique()->safeEmail(),
 //            'email_verified_at' => now(),
             'password' => Hash::make($this->faker->password(minLength: 8)),
