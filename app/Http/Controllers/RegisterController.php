@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Category;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -27,7 +28,7 @@ class RegisterController extends Controller
 
     public function store(Request $request) {
 
-        $request->validate([
+        $rules = [
             'login' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|confirmed|min:8',
@@ -39,11 +40,12 @@ class RegisterController extends Controller
             'photo' => 'image|mimes:jpeg,jpg,png,svg|max:2048|nullable',
             'authors' => 'exists:authors,id|nullable',
             'categories' => 'exists:categories,id|nullable'
-        ],[
+        ];
+        $messages = [
             'login.required' => 'Введите логин!',
             'login.unique' => 'Пользователь с таким логином уже существует!',     // пользовательские ошибки
 
-            'email.required' => 'Введите mail!',
+            'email.required' => 'Введите email!',
             'email.unique' => 'Пользователь с таким email уже существует',
             'email.email' => 'Введите корректный email',
 
@@ -62,7 +64,13 @@ class RegisterController extends Controller
             'photo.max' => 'Размер фото превышает 2 Мб',
             'authors.exists' => 'Автор не существует',
             'categories.exists' => 'Категория не существует',
-        ]);
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()]);
+        }
 
         if($request->hasFile('photo')) {
             $path = $request->file('photo')->store('images', 'public');
