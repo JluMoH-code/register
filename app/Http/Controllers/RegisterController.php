@@ -16,7 +16,13 @@ class RegisterController extends Controller
     public function create() {
         $authors = Author::all()->take(10);
         $categories = Category::all()->take(10);
-        return view('register', compact('authors', 'categories'));
+
+        return response()->json([
+            'authors' => $authors,
+            'categories' => $categories,
+            ]);
+
+//        return view('register', compact('authors', 'categories'));
     }
 
     public function store(Request $request) {
@@ -31,8 +37,8 @@ class RegisterController extends Controller
             'phone_number' => 'nullable|regex:/(7)[0-9]{10}/|unique:user_infos', // у всех пользователей должен быть разный телефон
             'about' => 'string|nullable',
             'photo' => 'image|mimes:jpeg,jpg,png,svg|max:2048|nullable',
-            'authors' => 'exists:authors,id',
-            'categories' => 'exists:categories,id'
+            'authors' => 'exists:authors,id|nullable',
+            'categories' => 'exists:categories,id|nullable'
         ],[
             'login.required' => 'Введите логин!',
             'login.unique' => 'Пользователь с таким логином уже существует!',     // пользовательские ошибки
@@ -83,6 +89,11 @@ class RegisterController extends Controller
 
         event(new Registered($user));
         Auth::login($user);
-        return redirect()->route('home');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'registration success',
+            ]);
+//        return redirect()->route('home');
     }
 }
