@@ -14,7 +14,9 @@ class Author extends Model
     protected $table = "authors";
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
     public function users() {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
