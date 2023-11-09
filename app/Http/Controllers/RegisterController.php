@@ -14,24 +14,12 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    public function create() {
-        $authors = Author::all()->take(10);
-        $categories = Category::all()->take(10);
-
-        return response()->json([
-            'authors' => $authors,
-            'categories' => $categories,
-            ]);
-
-//        return view('register', compact('authors', 'categories'));
-    }
-
     public function store(Request $request) {
 
         $rules = [
             'login' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|confirmed|regex:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/',
             'name' => 'string|nullable',
             'secondary_name' => 'string|nullable',
             'birthday' => 'date|nullable',
@@ -51,7 +39,7 @@ class RegisterController extends Controller
 
             'password.required' => 'Введите пароль!',
             'password.confirmed' => 'Пароли не совпадают!',
-            'password.min' => 'Пароль должен содержать минимум 8 символов',
+            'password.regex' => 'Пароль должен быть написан латиницей, содержать минимум 8 символов, хотя бы один спец символ, хотя бы одну цифру',
 
             'name.string' => 'Имя должно быть строкой',
             'secondary_name.string' => 'Фамилия должна быть строкой',
@@ -101,7 +89,6 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'registration success',
-            ]);
-//        return redirect()->route('home');
+            ], 200);
     }
 }

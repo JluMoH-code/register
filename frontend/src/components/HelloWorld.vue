@@ -81,33 +81,30 @@
       </li>
     </ul>
   </div>
+
+  <p>author id: {{ authors[0].id }}</p>
+
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'HelloWorld',
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      authors: {},
+      categories: {},
+    }
+  },
+  async created() {
+    try {
+      const response = await axios.get(`/api/register`);
+      this.authors = response.data.authors;
+      this.categories = response.data.categories;
+    } catch (error) {
+      console.error(error);
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
