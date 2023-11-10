@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/register', "RegisterController@create")->middleware('guest')->name('register.create');
+Route::get('/authors', "AuthorController@index")->name('author.index');
+Route::get('/categories', "CategoryController@index")->name('category.index');
 Route::post('/register', "RegisterController@store")->middleware('guest')->name('register.store');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
