@@ -101,7 +101,7 @@ class RegisterController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'registration success',
-            ]);
+            ], 200);
 //        return redirect()->route('home');
     }
 }

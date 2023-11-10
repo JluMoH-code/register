@@ -18,11 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/register', "RegisterController@create")->middleware('guest')->name('register.create');
 Route::post('/register', "RegisterController@store")->middleware('guest')->name('register.store');
 
-//Route::get('/email/verify', fn()=>view('email_verify'))->middleware('auth')->name('verify');
-Route::get('/email/verify', fn()=>response()->json(['message' => 'Email verified success']))->middleware('auth')->name('verify');
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect()->route('verify');
+    return response()->json(['message' => 'Success verified']);
 })->middleware(['auth', 'signed'])->name('verification.verify');
-Route::get('/email/verify/notice', fn()=>response()->json(['message' => 'Email must be verified']))->middleware('auth')->name('verification.notice');
-
