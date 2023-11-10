@@ -19,7 +19,7 @@ class RegisterController extends Controller
         $rules = [
             'login' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|confirmed|regex:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/',
+            'password' => 'required|confirmed|regex:/^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*"?]).*$/',
             'name' => 'string|nullable',
             'secondary_name' => 'string|nullable',
             'birthday' => 'date|nullable',
@@ -57,7 +57,9 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()]);
+            return response()->json([
+                'status' => 'error',
+                'errors'=>$validator->errors()]);
         }
 
         if($request->hasFile('photo')) {
@@ -87,8 +89,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         return response()->json([
-            'status' => true,
-            'message' => 'registration success',
+            'status' => 'success',
             ], 200);
     }
 }

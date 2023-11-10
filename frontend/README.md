@@ -1,4 +1,4 @@
-# register_front
+# frontend
 
 > A Vue.js project
 
